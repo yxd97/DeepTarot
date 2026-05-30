@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>交叉路径 · Crossroads Spread</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="spread-wrap">
+    <div class="spread-header" style="width: 440px;">
+        交叉路径 · Crossroads
+    </div>
+    <!-- A fat X. Card 1 sits alone in the centre. Each of the four wings holds
+         three cards (inner, middle, tip) running diagonally outward.
+         - The step out to the inner card (64x36) is larger than card 1's half-
+           size, so card 1 does NOT overlap cards 2-5: it sits in a clear gap.
+         - The wing step after that is 44x32 — wide and shallow, which keeps the
+           X fat (wider than tall) and overlaps adjacent wing cards only slightly
+           at the corners (~6px).
+         - Because the first step differs from the wing step, the wings are not
+           colinear with the centre: they read as four separate arms, not two
+           straight diagonals crossing through card 1.
+         Cards are listed tip-to-inner so inner cards shingle on top. -->
+    <div class="spread-canvas" style="width: 760px; height: 340px;">
+        <!-- Wing tips -->
+        <div class="card" style="--dx: -152px; --dy: -100px;">10<span class="label label--left">目前情况继续下去的结果 </span></div>
+        <div class="card" style="--dx: -152px; --dy:  100px;">11<span class="label label--left">近过去的影响力 </span></div>
+        <div class="card" style="--dx:  152px; --dy:  100px;">12<span class="label label--right">长远过去的业力累积 </span></div>
+        <div class="card" style="--dx:  152px; --dy: -100px;">13<span class="label label--right">如果改变现状的可能结果</span></div>
+        <!-- Wing middles -->
+        <div class="card" style="--dx: -108px; --dy: -68px;"> 6 <span class="label label--left">目前情况继续下去的结果 </span></div>
+        <div class="card" style="--dx: -108px; --dy:  68px;"> 7 <span class="label label--left">近过去的影响力 </span></div>
+        <div class="card" style="--dx:  108px; --dy:  68px;"> 8 <span class="label label--right">长远过去的业力累积 </span></div>
+        <div class="card" style="--dx:  108px; --dy: -68px;"> 9 <span class="label label--right">如果改变现状的可能结果 </span></div>
+        <!-- Wing inners -->
+        <div class="card" style="--dx:  -64px; --dy: -36px;"> 2 <span class="label label--left">目前情况继续下去的结果 </span></div>
+        <div class="card" style="--dx:  -64px; --dy:  36px;"> 3 <span class="label label--left">近过去的影响力 </span></div>
+        <div class="card" style="--dx:   64px; --dy:  36px;"> 4 <span class="label label--right">长远过去的业力累积 </span></div>
+        <div class="card" style="--dx:   64px; --dy: -36px;"> 5 <span class="label label--right">如果改变现状的可能结果 </span></div>
+        <!-- Centre, standing alone -->
+        <div class="card" style="--dx:    0px; --dy:   0px;"> 1 <span class="label label--top">当事人现状 </span></div>
+    </div>
+</div>
+
+</body>
+</html>

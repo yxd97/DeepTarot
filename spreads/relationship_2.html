@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>人际关系2 · Relationship Spread</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="spread-wrap">
+    <div class="spread-header" style="width: 560px;">
+        人际关系2 · Relationship
+    </div>
+    <!-- Two triangles facing each other across the centre card 7:
+         A (1 top, 2 left vertex, 3 bottom) points left; B (4, 5, 6) mirrors it
+         on the right. Symmetric about card 7 — right cards negate the left --dx. -->
+    <div class="spread-canvas" style="width: 560px; height: 320px;">
+        <!-- Centred viewBox (canvas 560x320): SVG units are offsets from the
+             centre, matching the cards' --dx / --dy. Two diamonds share vertex 7. -->
+        <svg class="spread-lines" viewBox="-280 -160 560 320">
+            <!-- Left diamond: 1 -> 2 -> 3 -> 7 -->
+            <polygon points="-72,-62 -144,0 -72,62 0,0"
+                     style="fill:none; stroke:#b0c4de; stroke-width:3; stroke-dasharray:4;" />
+            <!-- Right diamond: 4 -> 5 -> 6 -> 7 -->
+            <polygon points="72,-62 144,0 72,62 0,0"
+                     style="fill:none; stroke:#b0c4de; stroke-width:3; stroke-dasharray:4;" />
+        </svg>
+        <div class="card" style="--dx:  -72px; --dy: -62px;"> 1 <span class="label label--top">A的想法</span></div>
+        <div class="card" style="--dx: -144px; --dy:   0px;"> 2 <span class="label label--left">A的潜意识</span></div>
+        <div class="card" style="--dx:  -72px; --dy:  62px;"> 3 <span class="label label--bottom">A的感觉</span></div>
+        <div class="card" style="--dx:   72px; --dy: -62px;"> 4 <span class="label label--top">B的感觉</span></div>
+        <div class="card" style="--dx:  144px; --dy:   0px;"> 5 <span class="label label--right">B的潜意识</span></div>
+        <div class="card" style="--dx:   72px; --dy:  62px;"> 6 <span class="label label--bottom">B的想法</span></div>
+        <div class="card" style="--dx:    0px; --dy:   0px;"> 7 <span class="label label--bottom">关系核心</span></div>
+    </div>
+
+    <div class="spread-notes" style="width: 560px;">
+        适用于感情、友情或一般人际关系
+    </div>
+</div>
+
+</body>
+</html>

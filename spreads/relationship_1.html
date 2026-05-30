@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>人际关系1 · Relationship Spread</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="spread-wrap">
+    <div class="spread-header" style="width: 360px;">
+        人际关系1 · Relationship
+    </div>
+
+
+
+    <!-- The two people (1, 2) sit at the base; their relationship (3) rises above
+         the gap between them, and the outcome (4) sits at the top. Rows are
+         stepped 90px apart and centred vertically. -->
+    <div class="spread-canvas" style="width: 360px; height: 360px;">
+
+        <svg class="spread-lines" viewBox="-230 -280 460 560">
+            <!-- Horizontal bar through cards 1-5 -->
+            <line x1="0" y1="0" x2="0" y2="-90"
+                    style="stroke:#b0c4de; stroke-width:3; stroke-dasharray:4;" />
+            <!-- Vertical bar through cards 6, 3, 7, 8, 9 -->
+            <polygon points="-80,130 80,130 0,0"
+                    style="fill:none; stroke:#b0c4de; stroke-width:3; stroke-dasharray:4;" />
+        </svg>
+
+        <div class="card" style="--dx:    0px; --dy: -90px;"> 4 <span class="label label--top">发展</span></div>
+        <div class="card" style="--dx:    0px; --dy:   0px;"> 3 <span class="label label--right">关系</span></div>
+        <div class="card" style="--dx:  -55px; --dy:  90px;"> 1 <span class="label label--left">问卜者</span></div>
+        <div class="card" style="--dx:   55px; --dy:  90px;"> 2 <span class="label label--right">对象</span></div>
+    </div>
+
+    <div class="spread-notes" style="width: 420px;">
+        <ul>
+            <li><b>1 问卜者</b>：当事人本身状况，对此段感情的想法或作法。</li>
+            <li><b>2 对象</b>：对象本身状况，对此段感情的想法或作法。</li>
+            <li><b>3 关系</b>：两人目前的关系程度，相处和感情状况。</li>
+            <li><b>4 发展</b>：两人关系未来发展，此段感情的结局。</li>
+        </ul>
+    </div>
+</div>
+
+</body>
+</html>

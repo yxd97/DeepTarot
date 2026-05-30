@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>魔法十字 · Maigc Cross Spread</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="spread-wrap">
+    <div class="spread-header" style="width: 500px;">
+        魔法十字 · Maigc Cross
+    </div>
+    <!-- A cross: a horizontal bar (1-5) crossed by a vertical bar (6,3,7,8,9),
+         sharing card 3. The horizontal arm is symmetric about the centre. -->
+    <div class="spread-canvas" style="width: 460px; height: 560px;">
+        <!-- Centred viewBox (canvas 460x560): SVG units are offsets from the
+             centre, matching the cards' --dx / --dy. -->
+        <svg class="spread-lines" viewBox="-230 -280 460 560">
+            <!-- Horizontal bar through cards 1-5 -->
+            <line x1="-134" y1="-80" x2="134" y2="-80"
+                  style="stroke:#b0c4de; stroke-width:3; stroke-dasharray:4;" />
+            <!-- Vertical bar through cards 6, 3, 7, 8, 9 -->
+            <line x1="0" y1="-200" x2="0" y2="190"
+                  style="stroke:#b0c4de; stroke-width:3; stroke-dasharray:4;" />
+        </svg>
+        <div class="card" style="--dx: -134px; --dy: -80px;"> 1 <span class="label label--top">过去 </span></div>
+        <div class="card" style="--dx:  -67px; --dy: -80px;"> 2 <span class="label label--top">过去 </span></div>
+        <div class="card" style="--dx:    0px; --dy: -80px;"> 3 <span class="label label--top">现在 </span></div>
+        <div class="card" style="--dx:   67px; --dy: -80px;"> 4 <span class="label label--top">阻碍 </span></div>
+        <div class="card" style="--dx:  134px; --dy: -80px;"> 5 <span class="label label--top">阻碍 </span></div>
+        <div class="card" style="--dx:    0px; --dy: -200px;"> 6 <span class="label label--left">希望与期待 </span></div>
+        <div class="card" style="--dx:    0px; --dy:   10px;"> 7 <span class="label label--left">未来 </span></div>
+        <div class="card" style="--dx:    0px; --dy:  100px;"> 8 <span class="label label--left">未来 </span></div>
+        <div class="card" style="--dx:    0px; --dy:  190px;"> 9 <span class="label label--left">未来 </span></div>
+    </div>
+</div>
+
+</body>
+</html>

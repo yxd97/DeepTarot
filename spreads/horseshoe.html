@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>马蹄形牌阵 · Horseshoe Spread</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="spread-wrap">
+    <div class="spread-header" style="width: 500px;">
+        马蹄形牌阵 · Horseshoe
+    </div>
+    <!-- An arc peaking at the centre card; mirrored cards negate --dx. -->
+    <div class="spread-canvas" style="width: 600px; height: 300px;">
+        <!-- Centred viewBox (canvas 600x300): SVG units are offsets from the
+             centre, matching the cards' --dx / --dy. -->
+        <svg class="spread-lines" viewBox="-300 -150 600 300">
+            <!-- The arc threading all seven cards -->
+            <polyline points="-200,70 -133,37 -67,3 0,-30 67,3 133,37 200,70"
+                      style="fill:none; stroke:#b0c4de; stroke-width:3; stroke-dasharray:4;" />
+        </svg>
+        <div class="card" style="--dx: -200px; --dy:  70px;"> 1 <span class="label label--top">过去|过去</span></div>
+        <div class="card" style="--dx: -133px; --dy:  37px;"> 2 <span class="label label--top">现在|现在</span></div>
+        <div class="card" style="--dx:  -67px; --dy:   3px;"> 3 <span class="label label--top">情况|未来</span></div>
+        <div class="card" style="--dx:    0px; --dy: -30px;"> 4 <span class="label label--top">阻碍|最佳行动状况</span></div>
+        <div class="card" style="--dx:   67px; --dy:   3px;"> 5 <span class="label label--top">警告|他人</span></div>
+        <div class="card" style="--dx:  133px; --dy:  37px;"> 6 <span class="label label--top">B选择的状况</span></div>
+        <div class="card" style="--dx:  200px; --dy:  70px;"> 7 <span class="label label--top">B选择的状况</span></div>
+    </div>
+    <div class="spread-notes">
+        部分牌有两种解读方式
+    </div>
+
+</div>
+
+</body>
+</html>

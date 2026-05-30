@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>六芒星牌阵 · Hexagram Spread</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="spread-wrap">
+    <div class="spread-header" style="width: 500px;">
+        六芒星牌阵 · Hexagram
+    </div>
+    <!-- 500x500 canvas. Cards and lines use coordinates relative to the centre.
+         The star's six points sit at radius 130, every 60°. -->
+    <div class="spread-canvas" style="width: 500px; height: 500px;">
+        <!-- Centred viewBox: SVG units are offsets from the canvas centre,
+             matching the cards' --dx / --dy. -->
+        <svg class="spread-lines" viewBox="-250 -250 500 500">
+            <!-- Upward triangle -->
+            <polygon points="0,-130 113,65 -113,65"
+                     style="fill:none; stroke:#b0c4de; stroke-width:3; stroke-dasharray:4;" />
+            <!-- Downward triangle -->
+            <polygon points="113,-65 0,130 -113,-65"
+                     style="fill:none; stroke:#b0c4de; stroke-width:3; stroke-dasharray:4;" />
+        </svg>
+
+        <!-- Each card carries a position label bubble on its outward side. -->
+        <div class="card" style="--dx:    0px; --dy: -130px;"> 1 <span class="label label--top">    过去      </span></div>
+        <div class="card" style="--dx:  113px; --dy:  -65px;"> 5 <span class="label label--right">  环境      </span></div>
+        <div class="card" style="--dx:  113px; --dy:   65px;"> 2 <span class="label label--right">  现在      </span></div>
+        <div class="card" style="--dx:    0px; --dy:  130px;"> 4 <span class="label label--bottom"> 处理方式   </span></div>
+        <div class="card" style="--dx: -113px; --dy:   65px;"> 3 <span class="label label--left">   未来      </span></div>
+        <div class="card" style="--dx: -113px; --dy:  -65px;"> 6 <span class="label label--left">   心态想法  </span></div>
+        <div class="card" style="--dx:    0px; --dy:    0px;"> 7 <span class="label label--bottom"> 整体结论  </span></div>
+    </div>
+
+    <!-- Reading guidance grouping the positions in different ways. -->
+    <div class="spread-notes">
+        <ul>
+            <li>较无法改变的部分：<b>1、5、6</b></li>
+            <li>当事人可以调理的部分：<b>2、3、4</b></li>
+            <li>心理因素所形成的部分：<b>5、2</b></li>
+            <li>实际面造成的发展：<b>6、3</b></li>
+            <li>问卜者的核心态度：<b>1、7、4</b></li>
+        </ul>
+    </div>
+</div>
+
+</body>
+</html>

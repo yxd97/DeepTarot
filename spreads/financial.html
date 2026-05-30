@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>财务问题 · Financial Spread</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="spread-wrap">
+    <div class="spread-header" style="width: 360px;">
+        财务问题 · Financial
+    </div>
+    <!-- Symmetric about the vertical axis. Card 10 (apex) and card 3 sit on the
+         centre line; the left column 8/5/2 and right column 9/6/4 mirror each
+         other at +/-70; cards 1 and 7 are the outer top corners at +/-120.
+         Card meanings are defined by group (see notes), so cards show only
+         their number. Rows stepped 84px and centred vertically. -->
+    <div class="spread-canvas" style="width: 360px; height: 380px;">
+        <!-- Top row: outer corners and the apex -->
+        <div class="card" style="--dx: -120px; --dy: -126px;"> 1 </div>
+        <div class="card" style="--dx:    0px; --dy: -126px;">10 </div>
+        <div class="card" style="--dx:  120px; --dy: -126px;"> 7 </div>
+        <!-- Upper inner pair -->
+        <div class="card" style="--dx:  -70px; --dy:  -42px;"> 8 </div>
+        <div class="card" style="--dx:   70px; --dy:  -42px;"> 9 </div>
+        <!-- Lower inner pair -->
+        <div class="card" style="--dx:  -70px; --dy:   42px;"> 5 </div>
+        <div class="card" style="--dx:   70px; --dy:   42px;"> 6 </div>
+        <!-- Bottom row -->
+        <div class="card" style="--dx:  -70px; --dy:  126px;"> 2 </div>
+        <div class="card" style="--dx:    0px; --dy:  126px;"> 3 </div>
+        <div class="card" style="--dx:   70px; --dy:  126px;"> 4 </div>
+    </div>
+
+    <div class="spread-notes" style="width: 360px;">
+        <ul>
+            <li><b>1 + 2 + 3 + 4</b>：当事人对金钱的关切点</li>
+            <li><b>5 + 6 + 7</b>：如何得到财务保障</li>
+            <li><b>8 + 9</b>：谁能提供当事人所需之协助</li>
+            <li><b>10</b>：当事人未来的计画</li>
+        </ul>
+    </div>
+</div>
+
+</body>
+</html>

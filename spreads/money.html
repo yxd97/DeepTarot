@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>金钱牌阵 · Money Spread</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="spread-wrap">
+    <div class="spread-header" style="width: 500px;">
+        金钱牌阵 · Money
+    </div>
+    <!-- A hexagon: 1 at top, 2/3 upper sides, 4/5 lower sides, 6 at bottom.
+         Symmetric about the vertical axis — right cards negate the left --dx.
+         Rows stepped 90px and centred vertically. -->
+    <div class="spread-canvas" style="width: 600px; height: 500px;">
+        <!-- Centred viewBox (canvas 600x500): SVG units are offsets from the
+             centre, matching the cards' --dx / --dy. -->
+        <svg class="spread-lines" viewBox="-300 -250 600 500">
+            <!-- Reading path threading the cards in order 1-2-3-4-5-6 -->
+            <polyline points="0,-135 -100,-45 100,-45 -100,45 100,45 0,135"
+                      style="fill:none; stroke:#b0c4de; stroke-width:3; stroke-dasharray:4;" />
+        </svg>
+        <div class="card" style="--dx:    0px; --dy: -135px;"> 1 <span class="label label--top">财务问题的根源因素</span></div>
+        <div class="card" style="--dx: -100px; --dy:  -45px;"> 2 <span class="label label--left">当事人需要做的事</span></div>
+        <div class="card" style="--dx:  100px; --dy:  -45px;"> 3 <span class="label label--right">什么事带来影响</span></div>
+        <div class="card" style="--dx: -100px; --dy:   45px;"> 4 <span class="label label--left">利益关系</span></div>
+        <div class="card" style="--dx:  100px; --dy:   45px;"> 5 <span class="label label--right">有无贵人协助</span></div>
+        <div class="card" style="--dx:    0px; --dy:  135px;"> 6 <span class="label label--bottom">结局</span></div>
+    </div>
+</div>
+
+</body>
+</html>

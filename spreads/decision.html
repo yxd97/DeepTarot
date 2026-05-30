@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>抉择牌阵 · Decision Spread</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="spread-wrap">
+    <div class="spread-header" style="width: 500px;">
+        抉择牌阵 · Decision
+    </div>
+    <!-- 500x500 canvas. Cards and lines use coordinates relative to the centre.
+         The star's six points sit at radius 130, every 60°. -->
+    <div class="spread-canvas" style="width: 500px; height: 500px;">
+        <!-- Centred viewBox: SVG units are offsets from the canvas centre,
+             matching the cards' --dx / --dy. -->
+        <svg class="spread-lines" viewBox="-250 -250 500 500">
+            <!-- Upward triangle -->
+            <polygon points="0,-130 -70,-50 -70,50 0,130 70,50 70,-50" style="fill:none; stroke:#b0c4de; stroke-width:3; stroke-dasharray:4;" />
+        </svg>
+
+        <!-- Each card carries a position label bubble on its outward side. -->
+        <div class="card" style="--dx:  0px; --dy: -130px;"> 1 <span class="label label--top">问题</span></div>
+        <div class="card" style="--dx: -70px; --dy:  -50px;"> 2 <span class="label label--left">第一个选项</span></div>
+        <div class="card" style="--dx: -70px; --dy:   50px;"> 4 <span class="label label--left">选择一的可能发展</span></div>
+        <div class="card" style="--dx:  70px; --dy:  -50px;"> 3 <span class="label label--right">第二个选项</span></div>
+        <div class="card" style="--dx:  70px; --dy:   50px;"> 5 <span class="label label--right">选择二的可能发展</span></div>
+        <div class="card" style="--dx:  0px; --dy:  130px;"> 6 <span class="label label--bottom">目前最接近的结局</span></div>
+    </div>
+
+
+</div>
+
+</body>
+</html>

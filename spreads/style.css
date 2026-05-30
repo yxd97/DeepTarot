@@ -1,0 +1,152 @@
+/* Shared stylesheet for tarot spread (牌阵) geometry.
+   Each spread is an HTML file that links this file and places .card
+   elements at absolute pixel coordinates inside a .spread-canvas. */
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    box-sizing: border-box;
+    padding: 40px;
+    background-color: #f0f2f5;
+    margin: 0;
+    font-family: system-ui, -apple-system, sans-serif;
+}
+
+/* Stacks the canvas and its explanation note vertically, centred. */
+.spread-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+}
+
+/* The canvas container establishing the absolute-positioning coordinate space. */
+.spread-canvas {
+    position: relative;
+    width: 400px;
+    height: 400px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.spread-header {
+    width: 400px;
+    box-sizing: border-box;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    padding: 18px 22px;
+    color: #007acc;
+    font-size: 24px;
+    vertical-align: middle;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* SVG backdrop that scales connecting lines perfectly behind the cards. */
+.spread-lines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Allows clicking cards underneath. */
+}
+
+/* A single card: a rounded rectangle with its number centred.
+   Cards are positioned by offset from the canvas centre: --dx / --dy are the
+   horizontal / vertical distance (in px) from the centre. This keeps symmetric
+   spreads easy to write — mirrored cards just have negated --dx / --dy. */
+.card {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    --dx: 0px;
+    --dy: 0px;
+    width: 50px;
+    height: 72px;
+    background-color: #007acc;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 122, 204, 0.3);
+    /* First centre the card on the canvas centre, then apply its offset. */
+    transform: translate(-50%, -50%) translate(var(--dx), var(--dy));
+    transition: transform 0.2s ease, background-color 0.2s ease;
+    cursor: pointer;
+    user-select: none;
+}
+
+.card:hover {
+    background-color: #005999;
+    transform: translate(-50%, -50%) translate(var(--dx), var(--dy)) scale(1.1);
+}
+
+/* Text bubble naming a card's position, placed beside its card.
+   Positioned relative to the parent .card; a direction modifier picks the side. */
+.label {
+    position: absolute;
+    background: #fffbe6;
+    border: 1px solid #e0d8a0;
+    color: #333;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 4px 8px;
+    border-radius: 10px;
+    white-space: nowrap;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+    pointer-events: none;
+}
+
+.label--right {
+    left: calc(100% + 10px);
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.label--left {
+    right: calc(100% + 10px);
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.label--top {
+    bottom: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.label--bottom {
+    top: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Explanatory note rendered beneath the spread. */
+.spread-notes {
+    width: 400px;
+    box-sizing: border-box;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    padding: 18px 22px;
+    color: #333;
+    font-size: 14px;
+    line-height: 1.9;
+}
+
+.spread-notes ul {
+    margin: 0;
+    padding-left: 18px;
+}
+
+.spread-notes b {
+    color: #007acc;
+}
