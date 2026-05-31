@@ -89,10 +89,10 @@
         { "n": 1, "label": "现状出发点", "dx": 0, "dy": 150, "dir": "bottom" },
         { "n": 2, "label": "A选择的状况", "dx": -40, "dy": 50, "dir": "left" },
         { "n": 3, "label": "B选择的状况", "dx": 40, "dy": 50, "dir": "right" },
-        { "n": 4, "label": "A选择的状况", "dx": -80, "dy": -50, "dir": "left" },
-        { "n": 5, "label": "B选择的状况", "dx": 80, "dy": -50, "dir": "right" },
-        { "n": 6, "label": "A选择的状况", "dx": -120, "dy": -150, "dir": "left" },
-        { "n": 7, "label": "B选择的状况", "dx": 120, "dy": -150, "dir": "right" }
+        { "n": 4, "label": "A选择的结果", "dx": -80, "dy": -50, "dir": "left" },
+        { "n": 5, "label": "B选择的结果", "dx": 80, "dy": -50, "dir": "right" },
+        { "n": 6, "label": "A选择的未来", "dx": -120, "dy": -150, "dir": "left" },
+        { "n": 7, "label": "B选择的未来", "dx": 120, "dy": -150, "dir": "right" }
       ],
       "notes_html": null
     },
