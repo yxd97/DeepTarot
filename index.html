@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>DeepSeek 塔罗解牌 · Tarot Reading</title>
+    <link rel="stylesheet" href="app.css">
+</head>
+<body>
+<div class="app-wrap">
+
+    <header class="app-header">
+        <h1>🔮 DeepSeek 塔罗解牌</h1>
+        <p class="subtitle">选择牌阵 · 输入你抽到的牌 · 由 DeepSeek 为你解读</p>
+    </header>
+
+    <!-- API key (held in memory only, never stored) -->
+    <div class="panel">
+        <div class="key-row">
+            <label for="api-key">DeepSeek API Key</label>
+            <input type="password" id="api-key" placeholder="sk-..." autocomplete="off" spellcheck="false">
+        </div>
+        <p class="key-note">
+            你的密钥只保存在当前浏览器内存中，不会被存储或上传到任何服务器；刷新页面后需重新输入。
+            浏览器会直接与 DeepSeek 通信。没有密钥？
+            <a href="https://platform.deepseek.com/" target="_blank" rel="noopener">前往 DeepSeek 获取</a>。
+        </p>
+    </div>
+
+    <!-- Step 1: pick a spread -->
+    <section class="step active panel" id="step-pick">
+        <h2 class="step-title">第一步 · 选择牌阵</h2>
+        <div class="spread-grid" id="spread-grid"><!-- filled by JS --></div>
+    </section>
+
+    <!-- Step 2: layout + question + card inputs -->
+    <section class="step panel" id="step-input">
+        <h2 class="step-title" id="input-title">第二步 · 输入抽到的牌</h2>
+        <div class="canvas-viewport">
+            <div class="canvas-scaler" id="canvas-scaler"><!-- spread layout --></div>
+        </div>
+        <div id="input-notes"><!-- spread notes --></div>
+
+        <div class="question-block">
+            <label for="question">你的问题（必填）</label>
+            <textarea id="question" placeholder="例如：我该接受这份新工作吗？"></textarea>
+        </div>
+
+        <div class="pos-list" id="pos-list"><!-- per-position inputs --></div>
+
+        <datalist id="cards-datalist"><!-- 78 cards --></datalist>
+
+        <div id="input-error"></div>
+        <div class="btn-row">
+            <button class="btn btn--ghost" id="back-to-pick">← 返回选牌阵</button>
+            <button class="btn" id="go-read">开始解读 →</button>
+        </div>
+    </section>
+
+    <!-- Step 3: results -->
+    <section class="step panel" id="step-result">
+        <h2 class="step-title">第三步 · 解读结果</h2>
+        <div id="result-status"></div>
+        <details class="thinking-box" id="thinking-box" style="display:none;">
+            <summary>查看 AI 的思考过程</summary>
+            <div class="thinking-content" id="thinking-content"></div>
+        </details>
+        <div class="answer-content" id="answer-content"></div>
+        <div class="btn-row">
+            <button class="btn btn--ghost" id="back-to-input">← 修改输入</button>
+            <button class="btn" id="new-reading">开始新的解读</button>
+        </div>
+    </section>
+
+    <p class="disclaimer">塔罗解读仅供娱乐与自我反思之用，不构成任何专业建议。</p>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

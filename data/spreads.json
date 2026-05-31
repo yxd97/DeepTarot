@@ -1,0 +1,200 @@
+{
+  "spreads": [
+    {
+      "slug": "hexagram",
+      "name_zh": "六芒星牌阵",
+      "name_en": "Hexagram",
+      "count": 7,
+      "canvas": { "w": 500, "h": 500 },
+      "viewBox": "-250 -250 500 500",
+      "svg": "<polygon points=\"0,-130 113,65 -113,65\" style=\"fill:none; stroke:#b0c4de; stroke-width:3; stroke-dasharray:4;\" /><polygon points=\"113,-65 0,130 -113,-65\" style=\"fill:none; stroke:#b0c4de; stroke-width:3; stroke-dasharray:4;\" />",
+      "positions": [
+        { "n": 1, "label": "过去", "dx": 0, "dy": -130, "dir": "top" },
+        { "n": 2, "label": "现在", "dx": 113, "dy": 65, "dir": "right" },
+        { "n": 3, "label": "未来", "dx": -113, "dy": 65, "dir": "left" },
+        { "n": 4, "label": "处理方式", "dx": 0, "dy": 130, "dir": "bottom" },
+        { "n": 5, "label": "环境", "dx": 113, "dy": -65, "dir": "right" },
+        { "n": 6, "label": "心态想法", "dx": -113, "dy": -65, "dir": "left" },
+        { "n": 7, "label": "整体结论", "dx": 0, "dy": 0, "dir": "bottom" }
+      ],
+      "notes_html": "<ul><li>较无法改变的部分：<b>1、5、6</b></li><li>当事人可以调理的部分：<b>2、3、4</b></li><li>心理因素所形成的部分：<b>5、2</b></li><li>实际面造成的发展：<b>6、3</b></li><li>问卜者的核心态度：<b>1、7、4</b></li></ul>"
+    },
+    {
+      "slug": "decision",
+      "name_zh": "抉择牌阵",
+      "name_en": "Decision",
+      "count": 6,
+      "canvas": { "w": 500, "h": 500 },
+      "viewBox": "-250 -250 500 500",
+      "svg": "<polygon points=\"0,-130 -70,-50 -70,50 0,130 70,50 70,-50\" style=\"fill:none; stroke:#b0c4de; stroke-width:3; stroke-dasharray:4;\" />",
+      "positions": [
+        { "n": 1, "label": "问题", "dx": 0, "dy": -130, "dir": "top" },
+        { "n": 2, "label": "第一个选项", "dx": -70, "dy": -50, "dir": "left" },
+        { "n": 3, "label": "第二个选项", "dx": 70, "dy": -50, "dir": "right" },
+        { "n": 4, "label": "选择一的可能发展", "dx": -70, "dy": 50, "dir": "left" },
+        { "n": 5, "label": "选择二的可能发展", "dx": 70, "dy": 50, "dir": "right" },
+        { "n": 6, "label": "目前最接近的结局", "dx": 0, "dy": 130, "dir": "bottom" }
+      ],
+      "notes_html": null
+    },
+    {
+      "slug": "horseshoe",
+      "name_zh": "马蹄形牌阵",
+      "name_en": "Horseshoe",
+      "count": 7,
+      "canvas": { "w": 600, "h": 300 },
+      "viewBox": "-300 -150 600 300",
+      "svg": "<polyline points=\"-200,70 -133,37 -67,3 0,-30 67,3 133,37 200,70\" style=\"fill:none; stroke:#b0c4de; stroke-width:3; stroke-dasharray:4;\" />",
+      "positions": [
+        { "n": 1, "label": "过去|过去", "dx": -200, "dy": 70, "dir": "top" },
+        { "n": 2, "label": "现在|现在", "dx": -133, "dy": 37, "dir": "top" },
+        { "n": 3, "label": "情况|未来", "dx": -67, "dy": 3, "dir": "top" },
+        { "n": 4, "label": "阻碍|最佳行动状况", "dx": 0, "dy": -30, "dir": "top" },
+        { "n": 5, "label": "警告|他人", "dx": 67, "dy": 3, "dir": "top" },
+        { "n": 6, "label": "B选择的状况", "dx": 133, "dy": 37, "dir": "top" },
+        { "n": 7, "label": "B选择的状况", "dx": 200, "dy": 70, "dir": "top" }
+      ],
+      "notes_html": "部分牌有两种解读方式（标签中以 | 分隔两种解读）"
+    },
+    {
+      "slug": "magic_cross",
+      "name_zh": "魔法十字",
+      "name_en": "Magic Cross",
+      "count": 9,
+      "canvas": { "w": 460, "h": 560 },
+      "viewBox": "-230 -280 460 560",
+      "svg": "<line x1=\"-134\" y1=\"-80\" x2=\"134\" y2=\"-80\" style=\"stroke:#b0c4de; stroke-width:3; stroke-dasharray:4;\" /><line x1=\"0\" y1=\"-200\" x2=\"0\" y2=\"190\" style=\"stroke:#b0c4de; stroke-width:3; stroke-dasharray:4;\" />",
+      "positions": [
+        { "n": 1, "label": "过去", "dx": -134, "dy": -80, "dir": "top" },
+        { "n": 2, "label": "过去", "dx": -67, "dy": -80, "dir": "top" },
+        { "n": 3, "label": "现在", "dx": 0, "dy": -80, "dir": "top" },
+        { "n": 4, "label": "阻碍", "dx": 67, "dy": -80, "dir": "top" },
+        { "n": 5, "label": "阻碍", "dx": 134, "dy": -80, "dir": "top" },
+        { "n": 6, "label": "希望与期待", "dx": 0, "dy": -200, "dir": "left" },
+        { "n": 7, "label": "未来", "dx": 0, "dy": 10, "dir": "left" },
+        { "n": 8, "label": "未来", "dx": 0, "dy": 100, "dir": "left" },
+        { "n": 9, "label": "未来", "dx": 0, "dy": 190, "dir": "left" }
+      ],
+      "notes_html": null
+    },
+    {
+      "slug": "choice",
+      "name_zh": "选择牌阵",
+      "name_en": "Choice",
+      "count": 7,
+      "canvas": { "w": 540, "h": 540 },
+      "viewBox": "-270 -270 540 540",
+      "svg": "<line x1=\"0\" y1=\"150\" x2=\"-120\" y2=\"-150\" style=\"stroke:#b0c4de; stroke-width:3; stroke-dasharray:4;\" /><line x1=\"0\" y1=\"150\" x2=\"120\" y2=\"-150\" style=\"stroke:#b0c4de; stroke-width:3; stroke-dasharray:4;\" />",
+      "positions": [
+        { "n": 1, "label": "现状出发点", "dx": 0, "dy": 150, "dir": "bottom" },
+        { "n": 2, "label": "A选择的状况", "dx": -40, "dy": 50, "dir": "left" },
+        { "n": 3, "label": "B选择的状况", "dx": 40, "dy": 50, "dir": "right" },
+        { "n": 4, "label": "A选择的状况", "dx": -80, "dy": -50, "dir": "left" },
+        { "n": 5, "label": "B选择的状况", "dx": 80, "dy": -50, "dir": "right" },
+        { "n": 6, "label": "A选择的状况", "dx": -120, "dy": -150, "dir": "left" },
+        { "n": 7, "label": "B选择的状况", "dx": 120, "dy": -150, "dir": "right" }
+      ],
+      "notes_html": null
+    },
+    {
+      "slug": "crossroads",
+      "name_zh": "交叉路径",
+      "name_en": "Crossroads",
+      "count": 13,
+      "canvas": { "w": 760, "h": 340 },
+      "viewBox": null,
+      "svg": null,
+      "positions": [
+        { "n": 1, "label": "当事人现状", "dx": 0, "dy": 0, "dir": "top" },
+        { "n": 2, "label": "目前情况继续下去的结果", "dx": -64, "dy": -36, "dir": "left" },
+        { "n": 3, "label": "近过去的影响力", "dx": -64, "dy": 36, "dir": "left" },
+        { "n": 4, "label": "长远过去的业力累积", "dx": 64, "dy": 36, "dir": "right" },
+        { "n": 5, "label": "如果改变现状的可能结果", "dx": 64, "dy": -36, "dir": "right" },
+        { "n": 6, "label": "目前情况继续下去的结果", "dx": -108, "dy": -68, "dir": "left" },
+        { "n": 7, "label": "近过去的影响力", "dx": -108, "dy": 68, "dir": "left" },
+        { "n": 8, "label": "长远过去的业力累积", "dx": 108, "dy": 68, "dir": "right" },
+        { "n": 9, "label": "如果改变现状的可能结果", "dx": 108, "dy": -68, "dir": "right" },
+        { "n": 10, "label": "目前情况继续下去的结果", "dx": -152, "dy": -100, "dir": "left" },
+        { "n": 11, "label": "近过去的影响力", "dx": -152, "dy": 100, "dir": "left" },
+        { "n": 12, "label": "长远过去的业力累积", "dx": 152, "dy": 100, "dir": "right" },
+        { "n": 13, "label": "如果改变现状的可能结果", "dx": 152, "dy": -100, "dir": "right" }
+      ],
+      "notes_html": "<p>四个方向各有三张牌（内、中、尖），同一方向的三张牌共享同一主题，由内而外逐步加强。</p>"
+    },
+    {
+      "slug": "financial",
+      "name_zh": "财务问题",
+      "name_en": "Financial",
+      "count": 10,
+      "canvas": { "w": 360, "h": 380 },
+      "viewBox": null,
+      "svg": null,
+      "positions": [
+        { "n": 1, "label": "", "dx": -120, "dy": -126, "dir": "top" },
+        { "n": 2, "label": "", "dx": -70, "dy": 126, "dir": "bottom" },
+        { "n": 3, "label": "", "dx": 0, "dy": 126, "dir": "bottom" },
+        { "n": 4, "label": "", "dx": 70, "dy": 126, "dir": "bottom" },
+        { "n": 5, "label": "", "dx": -70, "dy": 42, "dir": "left" },
+        { "n": 6, "label": "", "dx": 70, "dy": 42, "dir": "right" },
+        { "n": 7, "label": "", "dx": 120, "dy": -126, "dir": "top" },
+        { "n": 8, "label": "", "dx": -70, "dy": -42, "dir": "left" },
+        { "n": 9, "label": "", "dx": 70, "dy": -42, "dir": "right" },
+        { "n": 10, "label": "", "dx": 0, "dy": -126, "dir": "top" }
+      ],
+      "notes_html": "<ul><li><b>1 + 2 + 3 + 4</b>：当事人对金钱的关切点</li><li><b>5 + 6 + 7</b>：如何得到财务保障</li><li><b>8 + 9</b>：谁能提供当事人所需之协助</li><li><b>10</b>：当事人未来的计画</li></ul>"
+    },
+    {
+      "slug": "money",
+      "name_zh": "金钱牌阵",
+      "name_en": "Money",
+      "count": 6,
+      "canvas": { "w": 600, "h": 500 },
+      "viewBox": "-300 -250 600 500",
+      "svg": "<polyline points=\"0,-135 -100,-45 100,-45 -100,45 100,45 0,135\" style=\"fill:none; stroke:#b0c4de; stroke-width:3; stroke-dasharray:4;\" />",
+      "positions": [
+        { "n": 1, "label": "财务问题的根源因素", "dx": 0, "dy": -135, "dir": "top" },
+        { "n": 2, "label": "当事人需要做的事", "dx": -100, "dy": -45, "dir": "left" },
+        { "n": 3, "label": "什么事带来影响", "dx": 100, "dy": -45, "dir": "right" },
+        { "n": 4, "label": "利益关系", "dx": -100, "dy": 45, "dir": "left" },
+        { "n": 5, "label": "有无贵人协助", "dx": 100, "dy": 45, "dir": "right" },
+        { "n": 6, "label": "结局", "dx": 0, "dy": 135, "dir": "bottom" }
+      ],
+      "notes_html": null
+    },
+    {
+      "slug": "relationship_1",
+      "name_zh": "人际关系1",
+      "name_en": "Relationship 1",
+      "count": 4,
+      "canvas": { "w": 360, "h": 360 },
+      "viewBox": "-230 -280 460 560",
+      "svg": "<line x1=\"0\" y1=\"0\" x2=\"0\" y2=\"-90\" style=\"stroke:#b0c4de; stroke-width:3; stroke-dasharray:4;\" /><polygon points=\"-80,130 80,130 0,0\" style=\"fill:none; stroke:#b0c4de; stroke-width:3; stroke-dasharray:4;\" />",
+      "positions": [
+        { "n": 1, "label": "问卜者", "dx": -55, "dy": 90, "dir": "left" },
+        { "n": 2, "label": "对象", "dx": 55, "dy": 90, "dir": "right" },
+        { "n": 3, "label": "关系", "dx": 0, "dy": 0, "dir": "right" },
+        { "n": 4, "label": "发展", "dx": 0, "dy": -90, "dir": "top" }
+      ],
+      "notes_html": "<ul><li><b>1 问卜者</b>：当事人本身状况，对此段感情的想法或作法。</li><li><b>2 对象</b>：对象本身状况，对此段感情的想法或作法。</li><li><b>3 关系</b>：两人目前的关系程度，相处和感情状况。</li><li><b>4 发展</b>：两人关系未来发展，此段感情的结局。</li></ul>"
+    },
+    {
+      "slug": "relationship_2",
+      "name_zh": "人际关系2",
+      "name_en": "Relationship 2",
+      "count": 7,
+      "canvas": { "w": 560, "h": 320 },
+      "viewBox": "-280 -160 560 320",
+      "svg": "<polygon points=\"-72,-62 -144,0 -72,62 0,0\" style=\"fill:none; stroke:#b0c4de; stroke-width:3; stroke-dasharray:4;\" /><polygon points=\"72,-62 144,0 72,62 0,0\" style=\"fill:none; stroke:#b0c4de; stroke-width:3; stroke-dasharray:4;\" />",
+      "positions": [
+        { "n": 1, "label": "A的想法", "dx": -72, "dy": -62, "dir": "top" },
+        { "n": 2, "label": "A的潜意识", "dx": -144, "dy": 0, "dir": "left" },
+        { "n": 3, "label": "A的感觉", "dx": -72, "dy": 62, "dir": "bottom" },
+        { "n": 4, "label": "B的感觉", "dx": 72, "dy": -62, "dir": "top" },
+        { "n": 5, "label": "B的潜意识", "dx": 144, "dy": 0, "dir": "right" },
+        { "n": 6, "label": "B的想法", "dx": 72, "dy": 62, "dir": "bottom" },
+        { "n": 7, "label": "关系核心", "dx": 0, "dy": 0, "dir": "bottom" }
+      ],
+      "notes_html": "适用于感情、友情或一般人际关系"
+    }
+  ]
+}

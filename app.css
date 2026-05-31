@@ -1,0 +1,292 @@
+/* Interactive tarot app styles.
+   Reuses the visual language of spreads/style.css (colors, card geometry,
+   --dx/--dy centre-offset positioning) but is self-contained so the app does
+   not depend on that file's body layout. */
+
+:root {
+    --accent: #007acc;
+    --accent-dark: #005999;
+    --bg: #f0f2f5;
+    --panel: #ffffff;
+    --label-bg: #fffbe6;
+    --label-border: #e0d8a0;
+    --line: #b0c4de;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: #333;
+    font-family: system-ui, -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    line-height: 1.7;
+}
+
+.app-wrap {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 24px 16px 64px;
+}
+
+/* ---- Header & API key ---- */
+.app-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.app-header h1 {
+    color: var(--accent);
+    font-size: 28px;
+    margin: 0 0 4px;
+}
+.app-header .subtitle { color: #777; font-size: 14px; margin: 0; }
+
+.panel {
+    background: var(--panel);
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    padding: 20px 22px;
+    margin-bottom: 20px;
+}
+
+.key-row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.key-row label { font-weight: 600; color: var(--accent); white-space: nowrap; }
+.key-row input[type="password"] {
+    flex: 1;
+    min-width: 220px;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 15px;
+}
+.key-note { font-size: 12px; color: #888; margin: 8px 0 0; }
+.key-note a { color: var(--accent); }
+
+/* ---- Buttons ---- */
+.btn {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 11px 22px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease, opacity 0.2s ease;
+}
+.btn:hover { background: var(--accent-dark); }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn--ghost {
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+}
+.btn--ghost:hover { background: rgba(0, 122, 204, 0.08); }
+.btn-row { display: flex; gap: 12px; justify-content: space-between; margin-top: 20px; }
+
+/* ---- Steps ---- */
+.step { display: none; }
+.step.active { display: block; }
+
+.step-title { color: var(--accent); font-size: 20px; font-weight: 700; margin: 0 0 14px; }
+
+/* ---- Spread picker ---- */
+.spread-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 14px;
+}
+.spread-card {
+    background: var(--panel);
+    border: 2px solid transparent;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    padding: 16px;
+    cursor: pointer;
+    text-align: center;
+    transition: transform 0.15s ease, border-color 0.15s ease;
+}
+.spread-card:hover { transform: translateY(-3px); }
+.spread-card.selected { border-color: var(--accent); }
+.spread-card .zh { font-weight: 700; font-size: 17px; color: var(--accent); }
+.spread-card .en { font-size: 12px; color: #999; }
+.spread-card .cnt { font-size: 12px; color: #666; margin-top: 6px; }
+
+/* ---- Spread layout canvas (mirrors spreads/style.css geometry) ---- */
+.canvas-viewport { width: 100%; overflow: hidden; display: flex; justify-content: center; }
+.canvas-scaler { transform-origin: top center; }
+
+.spread-canvas {
+    position: relative;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+.spread-lines {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+}
+.spread-canvas .card {
+    position: absolute;
+    left: 50%; top: 50%;
+    --dx: 0px; --dy: 0px;
+    width: 50px; height: 72px;
+    background-color: var(--accent);
+    color: #fff;
+    font-weight: bold; font-size: 18px;
+    display: flex; justify-content: center; align-items: center;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 122, 204, 0.3);
+    transform: translate(-50%, -50%) translate(var(--dx), var(--dy));
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.2s ease;
+}
+.spread-canvas .card.filled { background-color: #2e9e5b; box-shadow: 0 4px 10px rgba(46, 158, 91, 0.35); }
+.spread-canvas .card:hover { background-color: var(--accent-dark); }
+.spread-canvas .card.filled:hover { background-color: #248049; }
+
+.label {
+    position: absolute;
+    background: var(--label-bg);
+    border: 1px solid var(--label-border);
+    color: #333;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 3px 7px;
+    border-radius: 10px;
+    white-space: nowrap;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+    pointer-events: none;
+}
+.label--right { left: calc(100% + 10px); top: 50%; transform: translateY(-50%); }
+.label--left  { right: calc(100% + 10px); top: 50%; transform: translateY(-50%); }
+.label--top    { bottom: calc(100% + 10px); left: 50%; transform: translateX(-50%); }
+.label--bottom { top: calc(100% + 10px); left: 50%; transform: translateX(-50%); }
+
+.spread-notes {
+    background: #fafbfc;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 13px;
+    margin: 16px 0;
+}
+.spread-notes ul { margin: 0; padding-left: 18px; }
+.spread-notes b { color: var(--accent); }
+
+/* ---- Input form ---- */
+.question-block { margin: 18px 0; }
+.question-block label { font-weight: 700; color: var(--accent); display: block; margin-bottom: 6px; }
+.question-block textarea {
+    width: 100%;
+    min-height: 70px;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 15px;
+    font-family: inherit;
+    resize: vertical;
+}
+
+.pos-list { display: flex; flex-direction: column; gap: 10px; }
+.pos-row {
+    display: grid;
+    grid-template-columns: 44px 1fr auto;
+    gap: 10px;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    background: #fafbfc;
+}
+.pos-row .pos-num {
+    width: 32px; height: 32px;
+    background: var(--accent);
+    color: #fff;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700;
+}
+.pos-row .pos-meta { min-width: 0; }
+.pos-row .pos-label { font-size: 13px; color: #666; margin-bottom: 4px; }
+.pos-row .card-input {
+    width: 100%;
+    padding: 9px 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 15px;
+}
+.pos-row .card-input.invalid { border-color: #d9534f; background: #fff5f5; }
+
+/* Orientation toggle */
+.orient {
+    display: inline-flex;
+    border: 1px solid var(--accent);
+    border-radius: 8px;
+    overflow: hidden;
+    font-size: 14px;
+    user-select: none;
+}
+.orient button {
+    border: none;
+    background: #fff;
+    color: var(--accent);
+    padding: 8px 12px;
+    cursor: pointer;
+}
+.orient button.on { background: var(--accent); color: #fff; }
+
+/* ---- Results ---- */
+.thinking-box { margin-bottom: 16px; }
+.thinking-box summary {
+    cursor: pointer;
+    font-weight: 600;
+    color: #888;
+    font-size: 14px;
+}
+.thinking-content {
+    white-space: pre-wrap;
+    font-size: 13px;
+    color: #888;
+    background: #fafbfc;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 12px;
+    margin-top: 8px;
+    max-height: 280px;
+    overflow: auto;
+}
+.answer-content {
+    white-space: pre-wrap;
+    font-size: 15.5px;
+    line-height: 1.85;
+}
+.status-msg {
+    padding: 12px 14px;
+    border-radius: 8px;
+    margin: 12px 0;
+    font-size: 14px;
+}
+.status-msg.error { background: #fdecea; color: #b71c1c; border: 1px solid #f5c6cb; }
+.status-msg.info  { background: #e8f4fd; color: #0b5e9e; border: 1px solid #bee0fb; }
+.spinner-dots::after {
+    content: "";
+    animation: dots 1.2s steps(4, end) infinite;
+}
+@keyframes dots { 0% { content: ""; } 25% { content: "·"; } 50% { content: "··"; } 75% { content: "···"; } }
+
+.disclaimer { text-align: center; font-size: 12px; color: #aaa; margin-top: 28px; }
+
+/* ---- Responsive ---- */
+@media (max-width: 600px) {
+    .app-header h1 { font-size: 23px; }
+    .panel { padding: 16px; }
+    .pos-row { grid-template-columns: 36px 1fr; grid-template-areas: "num meta" "orient orient"; }
+    .pos-row .pos-num { grid-area: num; }
+    .pos-row .pos-meta { grid-area: meta; }
+    .pos-row .orient { grid-area: orient; justify-self: start; }
+    .btn-row .btn { flex: 1; }
+}
