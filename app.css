@@ -260,10 +260,55 @@ body {
     overflow: auto;
 }
 .answer-content {
-    white-space: pre-wrap;
     font-size: 15.5px;
     line-height: 1.85;
+    word-wrap: break-word;
 }
+.answer-content > :first-child { margin-top: 0; }
+.answer-content > :last-child { margin-bottom: 0; }
+.answer-content h1,
+.answer-content h2,
+.answer-content h3,
+.answer-content h4,
+.answer-content h5,
+.answer-content h6 {
+    line-height: 1.35;
+    margin: 1.4em 0 0.5em;
+    font-weight: 700;
+}
+.answer-content h1 { font-size: 1.5em; }
+.answer-content h2 { font-size: 1.32em; }
+.answer-content h3 { font-size: 1.16em; }
+.answer-content h4,
+.answer-content h5,
+.answer-content h6 { font-size: 1.04em; }
+.answer-content p { margin: 0.7em 0; }
+.answer-content ul,
+.answer-content ol { margin: 0.7em 0; padding-left: 1.5em; }
+.answer-content li { margin: 0.3em 0; }
+.answer-content blockquote {
+    margin: 0.9em 0;
+    padding: 0.2em 1em;
+    border-left: 3px solid #d9c7f0;
+    background: #faf7fe;
+    color: #555;
+    border-radius: 0 6px 6px 0;
+}
+.answer-content blockquote p { margin: 0.4em 0; }
+.answer-content hr {
+    border: none;
+    border-top: 1px solid #eee;
+    margin: 1.4em 0;
+}
+.answer-content code {
+    background: #f3f0f8;
+    padding: 0.1em 0.4em;
+    border-radius: 4px;
+    font-size: 0.9em;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+.answer-content a { color: #7b4fb5; }
+.answer-content strong { font-weight: 700; }
 .status-msg {
     padding: 12px 14px;
     border-radius: 8px;

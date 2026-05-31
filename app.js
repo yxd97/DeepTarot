@@ -70,6 +70,93 @@ const stripTags = (html) => {
   return d.textContent.replace(/\s+\n/g, '\n').trim();
 };
 
+/* ============================================================
+ * Minimal Markdown -> HTML renderer (self-contained, no deps)
+ * Handles headings, bold/italic, inline code, links, lists,
+ * blockquotes, horizontal rules and paragraphs. All input is
+ * HTML-escaped first, so it is safe for untrusted LLM output.
+ * ============================================================ */
+const escapeHtml = (s) => s
+  .replace(/&/g, '&amp;')
+  .replace(/</g, '&lt;')
+  .replace(/>/g, '&gt;');
+
+function renderInline(s) {
+  // s is already HTML-escaped. Apply inline markdown.
+  return s
+    .replace(/`([^`]+)`/g, (_, c) => `<code>${c}</code>`)
+    .replace(/\[([^\]]+)\]\((https?:[^)\s]+)\)/g,
+      (_, t, h) => `<a href="${h}" target="_blank" rel="noopener">${t}</a>`)
+    .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+    .replace(/__([^_]+)__/g, '<strong>$1</strong>')
+    .replace(/(^|[^*])\*([^*\n]+)\*/g, '$1<em>$2</em>')
+    .replace(/(^|[^_])_([^_\n]+)_/g, '$1<em>$2</em>');
+}
+
+function renderMarkdown(md) {
+  const lines = escapeHtml(md).split('\n');
+  let html = '';
+  let listType = null; // 'ul' | 'ol'
+  let inQuote = false;
+
+  const closeList = () => { if (listType) { html += `</${listType}>`; listType = null; } };
+  const closeQuote = () => { if (inQuote) { html += '</blockquote>'; inQuote = false; } };
+
+  for (let raw of lines) {
+    const line = raw.replace(/\s+$/, '');
+
+    if (!line.trim()) { closeList(); closeQuote(); continue; }
+
+    // Horizontal rule
+    if (/^\s*([-*_])\s*\1\s*\1[\s\1]*$/.test(line)) {
+      closeList(); closeQuote(); html += '<hr>'; continue;
+    }
+
+    // Heading
+    const h = line.match(/^(#{1,6})\s+(.*)$/);
+    if (h) {
+      closeList(); closeQuote();
+      const lvl = h[1].length;
+      html += `<h${lvl}>${renderInline(h[2])}</h${lvl}>`;
+      continue;
+    }
+
+    // Blockquote ('>' is already escaped to '&gt;' at this point)
+    const q = line.match(/^&gt;\s?(.*)$/);
+    if (q) {
+      closeList();
+      if (!inQuote) { html += '<blockquote>'; inQuote = true; }
+      html += `<p>${renderInline(q[1])}</p>`;
+      continue;
+    }
+    closeQuote();
+
+    // Ordered list item
+    const ol = line.match(/^\s*\d+[.)]\s+(.*)$/);
+    if (ol) {
+      if (listType !== 'ol') { closeList(); html += '<ol>'; listType = 'ol'; }
+      html += `<li>${renderInline(ol[1])}</li>`;
+      continue;
+    }
+
+    // Unordered list item
+    const ul = line.match(/^\s*[-*+]\s+(.*)$/);
+    if (ul) {
+      if (listType !== 'ul') { closeList(); html += '<ul>'; listType = 'ul'; }
+      html += `<li>${renderInline(ul[1])}</li>`;
+      continue;
+    }
+
+    // Paragraph
+    closeList();
+    html += `<p>${renderInline(line)}</p>`;
+  }
+
+  closeList();
+  closeQuote();
+  return html;
+}
+
 function showStep(which) {
   ['step-pick', 'step-input', 'step-result'].forEach((id) => {
     $(id).classList.toggle('active', id === which);
@@ -409,6 +496,7 @@ async function runReading() {
   let finish = null;
   let gotThinking = false;
   let gotAnswer = false;
+  let answerRaw = '';
 
   const onThink = (t) => {
     if (!gotThinking) { $('thinking-box').style.display = 'block'; gotThinking = true; }
@@ -417,7 +505,8 @@ async function runReading() {
   };
   const onAnswer = (t) => {
     if (!gotAnswer) { setStatus('', null); gotAnswer = true; }
-    $('answer-content').textContent += t;
+    answerRaw += t;
+    $('answer-content').innerHTML = renderMarkdown(answerRaw);
   };
 
   try {
