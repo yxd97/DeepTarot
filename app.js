@@ -1,8 +1,8 @@
 /* DeepSeek 塔罗解牌 — client-side app (vanilla JS, no build step).
  *
  * Flow: pick spread -> enter question + drawn cards -> stream a reading.
- * BYOK: the API key lives only in `state.apiKey` (memory). The browser calls
- * DeepSeek directly (CORS-verified). No data is persisted.
+ * BYOK: the API key is cached in this browser's localStorage for convenience
+ * and never sent anywhere except directly to DeepSeek (CORS-verified).
  */
 
 'use strict';
@@ -30,6 +30,16 @@ const SYSTEM_PROMPT = `你是一位经验丰富、温暖而真诚的塔罗解读
 - 因设备限制，不要输出表格，代码块，或者嵌套列表！`;
 
 const DEEPSEEK_URL = 'https://api.deepseek.com/chat/completions';
+const API_KEY_STORAGE = 'deeptarot_api_key';
+
+/* Deck tabs: display label -> group value in data/cards.json */
+const CARD_GROUPS = [
+  { tab: '大牌', group: '大阿尔卡纳' },
+  { tab: '宝剑', group: '宝剑' },
+  { tab: '权杖', group: '权杖' },
+  { tab: '圣杯', group: '圣杯' },
+  { tab: '星币', group: '星币' },
+];
 
 /* ============================================================
  * State
@@ -43,7 +53,6 @@ const state = {
 
 let SPREADS = [];
 let CARDS = [];
-const CARD_LOOKUP = new Map();   // normalized key -> card
 const CARD_BY_FILE = new Map();
 
 /* ============================================================
@@ -159,7 +168,7 @@ function renderMarkdown(md) {
 }
 
 function showStep(which) {
-  ['step-pick', 'step-input', 'step-result'].forEach((id) => {
+  ['step-pick', 'step-card', 'step-input', 'step-result'].forEach((id) => {
     $(id).classList.toggle('active', id === which);
   });
   window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -175,21 +184,104 @@ async function loadData() {
   ]);
   SPREADS = s.spreads;
   CARDS = c.cards;
-  const norm = (x) => String(x).trim().toLowerCase();
   CARDS.forEach((card) => {
-    const display = `${card.zh} · ${card.en}`;
-    card._display = display;
-    CARD_LOOKUP.set(norm(display), card);
-    CARD_LOOKUP.set(norm(card.zh), card);
-    CARD_LOOKUP.set(norm(card.en), card);
-    // also index the part before "/" for names like 权杖一/权杖首牌
-    if (card.zh.includes('/')) CARD_LOOKUP.set(norm(card.zh.split('/')[0]), card);
+    card._display = `${card.zh} · ${card.en}`;
     CARD_BY_FILE.set(card.file, card);
   });
 }
 
-function resolveCard(value) {
-  return CARD_LOOKUP.get(String(value).trim().toLowerCase()) || null;
+/* ============================================================
+ * Deck tabs + grid (shared by home deck viewer and picker modal)
+ * ============================================================ */
+function renderDeckTabs(tabsEl, activeGroup, onSwitch) {
+  tabsEl.innerHTML = '';
+  CARD_GROUPS.forEach((g) => {
+    const b = el('button', {
+      type: 'button',
+      class: 'tab-btn' + (g.group === activeGroup ? ' on' : ''),
+      text: g.tab,
+    });
+    b.addEventListener('click', () => onSwitch(g.group));
+    tabsEl.appendChild(b);
+  });
+}
+
+function renderDeckGrid(gridEl, group, onPick, opts = {}) {
+  const { usedFiles = null, currentFile = null } = opts;
+  gridEl.innerHTML = '';
+  CARDS.filter((c) => c.group === group).forEach((c) => {
+    const isCurrent = currentFile === c.file;
+    const used = !isCurrent && usedFiles && usedFiles.has(c.file);
+    const b = el('button', {
+      type: 'button',
+      class: 'deck-card-btn' + (used ? ' used' : '') + (isCurrent ? ' current' : ''),
+    }, [
+      el('span', { class: 'zh', text: c.zh }),
+      el('span', { class: 'en', text: c.en }),
+    ]);
+    if (used) b.disabled = true;
+    else b.addEventListener('click', () => onPick(c));
+    gridEl.appendChild(b);
+  });
+}
+
+/* ---- Home deck viewer ---- */
+let deckGroup = CARD_GROUPS[0].group;
+
+function renderDeckViewer() {
+  renderDeckTabs($('deck-tabs'), deckGroup, (g) => { deckGroup = g; renderDeckViewer(); });
+  renderDeckGrid($('deck-grid'), deckGroup, showCardDetail);
+}
+
+/* ---- Card meaning detail page ---- */
+async function showCardDetail(card) {
+  $('card-title').textContent = `${card.zh} · ${card.en}`;
+  $('card-content').innerHTML = '<p>加载中…</p>';
+  showStep('step-card');
+  try {
+    const r = await fetch(`cards/${card.file}`);
+    if (!r.ok) throw new Error(`HTTP ${r.status}`);
+    $('card-content').innerHTML = renderMarkdown(await r.text());
+  } catch (e) {
+    $('card-content').innerHTML = '';
+    $('card-content').appendChild(
+      el('div', { class: 'status-msg error', text: '加载牌义失败：' + e.message })
+    );
+  }
+}
+
+/* ---- Card picker modal ---- */
+let modalIdx = null;                    // selection index being edited
+let modalGroup = CARD_GROUPS[0].group;  // remembered across opens
+
+function openCardModal(idx) {
+  modalIdx = idx;
+  const sel = state.selections[idx];
+  $('modal-title').textContent = sel.label ? `位置 ${sel.n} · ${sel.label}` : `位置 ${sel.n}`;
+  if (sel.card) modalGroup = sel.card.group;
+  renderCardModal();
+  $('card-modal').hidden = false;
+  document.body.classList.add('modal-open');
+}
+
+function renderCardModal() {
+  const sel = state.selections[modalIdx];
+  // a physical deck has one of each card: grey out cards used elsewhere
+  const used = new Set(
+    state.selections.filter((s, i) => i !== modalIdx && s.card).map((s) => s.card.file)
+  );
+  renderDeckTabs($('modal-tabs'), modalGroup, (g) => { modalGroup = g; renderCardModal(); });
+  renderDeckGrid($('modal-grid'), modalGroup, (c) => {
+    sel.card = c;
+    updatePosRow(modalIdx);
+    closeCardModal();
+  }, { usedFiles: used, currentFile: sel.card ? sel.card.file : null });
+}
+
+function closeCardModal() {
+  $('card-modal').hidden = true;
+  modalIdx = null;
+  document.body.classList.remove('modal-open');
 }
 
 /* ============================================================
@@ -234,11 +326,6 @@ function buildInputStep() {
     notesWrap.appendChild(el('div', { class: 'spread-notes', html: sp.notes_html }));
   }
 
-  // datalist of all cards
-  const dl = $('cards-datalist');
-  dl.innerHTML = '';
-  CARDS.forEach((c) => dl.appendChild(el('option', { value: c._display })));
-
   // restore question
   $('question').value = state.question || '';
 
@@ -246,15 +333,12 @@ function buildInputStep() {
   const list = $('pos-list');
   list.innerHTML = '';
   state.selections.forEach((sel, idx) => {
-    const input = el('input', {
-      class: 'card-input',
-      list: 'cards-datalist',
-      placeholder: '搜索并选择一张牌…',
-      autocomplete: 'off',
-      'data-idx': idx,
+    const pickBtn = el('button', {
+      type: 'button',
+      class: 'card-select' + (sel.card ? ' picked' : ''),
+      text: sel.card ? sel.card._display : '点击选择一张牌…',
     });
-    if (sel.card) input.value = sel.card._display;
-    input.addEventListener('input', () => onCardInput(idx, input));
+    pickBtn.addEventListener('click', () => openCardModal(idx));
 
     const orient = el('div', { class: 'orient' }, [
       el('button', { type: 'button', 'data-rev': '0', class: sel.reversed ? '' : 'on', text: '正位' }),
@@ -272,7 +356,7 @@ function buildInputStep() {
       el('div', { class: 'pos-num', text: String(sel.n) }),
       el('div', { class: 'pos-meta' }, [
         el('div', { class: 'pos-label', text: labelText }),
-        input,
+        pickBtn,
       ]),
       orient,
     ]);
@@ -282,13 +366,16 @@ function buildInputStep() {
   $('input-error').innerHTML = '';
 }
 
-function onCardInput(idx, input) {
-  const card = resolveCard(input.value);
-  state.selections[idx].card = card;
-  input.classList.toggle('invalid', input.value.trim() !== '' && !card);
+function updatePosRow(idx) {
+  const sel = state.selections[idx];
+  const btn = document.querySelector(`#pos-row-${idx} .card-select`);
+  if (btn) {
+    btn.textContent = sel.card ? sel.card._display : '点击选择一张牌…';
+    btn.classList.toggle('picked', !!sel.card);
+  }
   // reflect filled state on the layout card
-  const layoutCard = document.querySelector(`.spread-canvas .card[data-n="${state.selections[idx].n}"]`);
-  if (layoutCard) layoutCard.classList.toggle('filled', !!card);
+  const layoutCard = document.querySelector(`.spread-canvas .card[data-n="${sel.n}"]`);
+  if (layoutCard) layoutCard.classList.toggle('filled', !!sel.card);
 }
 
 function renderLayout(sp) {
@@ -320,12 +407,8 @@ function renderLayout(sp) {
     });
     if (p.label) card.appendChild(el('span', { class: `label label--${p.dir || 'top'}`, text: p.label }));
     card.addEventListener('click', () => {
-      const row = $(`pos-row-${state.selections.findIndex((s) => s.n === p.n)}`);
-      if (row) {
-        const inp = row.querySelector('.card-input');
-        inp.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        inp.focus();
-      }
+      const idx = state.selections.findIndex((s) => s.n === p.n);
+      if (idx >= 0) openCardModal(idx);
     });
     canvas.appendChild(card);
   });
@@ -550,8 +633,31 @@ async function runReading() {
  * Wiring
  * ============================================================ */
 function wire() {
-  $('api-key').addEventListener('input', (e) => { state.apiKey = e.target.value.trim(); });
+  $('api-key').addEventListener('input', (e) => {
+    state.apiKey = e.target.value.trim();
+    // cache locally so the key survives reloads; clearing the field removes it
+    try {
+      if (state.apiKey) localStorage.setItem(API_KEY_STORAGE, state.apiKey);
+      else localStorage.removeItem(API_KEY_STORAGE);
+    } catch (_) { /* storage unavailable (e.g. private mode) — key stays in memory */ }
+  });
   $('question').addEventListener('input', (e) => { state.question = e.target.value; });
+
+  $('back-from-card').addEventListener('click', () => showStep('step-pick'));
+
+  $('modal-close').addEventListener('click', closeCardModal);
+  $('card-modal').addEventListener('click', (e) => {
+    if (e.target === $('card-modal')) closeCardModal();
+  });
+  $('modal-clear').addEventListener('click', () => {
+    if (modalIdx === null) return;
+    state.selections[modalIdx].card = null;
+    updatePosRow(modalIdx);
+    closeCardModal();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !$('card-modal').hidden) closeCardModal();
+  });
 
   $('back-to-pick').addEventListener('click', () => showStep('step-pick'));
   $('go-read').addEventListener('click', () => { if (validateInput()) runReading(); });
@@ -569,8 +675,13 @@ function wire() {
 (async function init() {
   wire();
   try {
+    const saved = localStorage.getItem(API_KEY_STORAGE);
+    if (saved) { state.apiKey = saved; $('api-key').value = saved; }
+  } catch (_) { /* storage unavailable — start with an empty key */ }
+  try {
     await loadData();
     renderSpreadGrid();
+    renderDeckViewer();
   } catch (e) {
     $('spread-grid').appendChild(
       el('div', { class: 'status-msg error', text: '加载数据失败：' + e.message + '（若在本地打开，请用本地服务器访问，例如 python3 -m http.server）' })

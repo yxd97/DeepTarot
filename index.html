@@ -14,15 +14,15 @@
         <p class="subtitle">选择牌阵 · 输入你抽到的牌 · 由 DeepSeek 为你解读</p>
     </header>
 
-    <!-- API key (held in memory only, never stored) -->
+    <!-- API key (cached locally in this browser's localStorage) -->
     <div class="panel">
         <div class="key-row">
             <label for="api-key">DeepSeek API Key</label>
             <input type="password" id="api-key" placeholder="sk-..." autocomplete="off" spellcheck="false">
         </div>
         <p class="key-note">
-            你的密钥只保存在当前浏览器内存中，不会被存储或上传到任何服务器；刷新页面后需重新输入。
-            浏览器会直接与 DeepSeek 通信。没有密钥？
+            你的密钥只保存在本设备浏览器的本地存储中（下次访问自动填入），不会上传到任何服务器；
+            浏览器会直接与 DeepSeek 通信。清空此输入框即可删除已保存的密钥。没有密钥？
             <a href="https://platform.deepseek.com/" target="_blank" rel="noopener">前往 DeepSeek 获取</a>。
         </p>
     </div>
@@ -31,6 +31,22 @@
     <section class="step active panel" id="step-pick">
         <h2 class="step-title">第一步 · 选择牌阵</h2>
         <div class="spread-grid" id="spread-grid"><!-- filled by JS --></div>
+
+        <!-- Deck viewer: browse all 78 cards' meanings -->
+        <div class="deck-viewer">
+            <h2 class="step-title">牌库 · 查看牌义</h2>
+            <div class="tabs" id="deck-tabs"><!-- filled by JS --></div>
+            <div class="deck-grid" id="deck-grid"><!-- filled by JS --></div>
+        </div>
+    </section>
+
+    <!-- Card meaning detail page -->
+    <section class="step panel" id="step-card">
+        <h2 class="step-title" id="card-title"></h2>
+        <div class="answer-content" id="card-content"></div>
+        <div class="btn-row">
+            <button class="btn btn--ghost" id="back-from-card">← 返回首页</button>
+        </div>
     </section>
 
     <!-- Step 2: layout + question + card inputs -->
@@ -47,8 +63,6 @@
         </div>
 
         <div class="pos-list" id="pos-list"><!-- per-position inputs --></div>
-
-        <datalist id="cards-datalist"><!-- 78 cards --></datalist>
 
         <div id="input-error"></div>
         <div class="btn-row">
@@ -74,6 +88,21 @@
 
     <p class="disclaimer">塔罗解读仅供娱乐与自我反思之用，不构成任何专业建议。
         源码：<a href='https://github.com/yxd97/DeepTarot/'>https://github.com/yxd97/DeepTarot/</a></p>
+</div>
+
+<!-- Card picker modal (5 tabs, tap to select) -->
+<div class="modal-overlay" id="card-modal" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <div class="modal-head">
+            <div class="modal-title" id="modal-title">选择一张牌</div>
+            <button class="modal-close" id="modal-close" type="button" aria-label="关闭">×</button>
+        </div>
+        <div class="tabs" id="modal-tabs"><!-- filled by JS --></div>
+        <div class="deck-grid modal-grid" id="modal-grid"><!-- filled by JS --></div>
+        <div class="modal-foot">
+            <button class="btn btn--ghost" id="modal-clear" type="button">清除该位置</button>
+        </div>
+    </div>
 </div>
 
 <script src="app.js"></script>

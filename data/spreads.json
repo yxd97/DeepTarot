@@ -1,6 +1,36 @@
 {
   "spreads": [
     {
+      "slug": "three_card_time",
+      "name_zh": "时间之流牌阵",
+      "name_en": "Three-Card Time Flow",
+      "count": 3,
+      "canvas": { "w": 460, "h": 220 },
+      "viewBox": "-230 -110 460 220",
+      "svg": "<line x1=\"-140\" y1=\"0\" x2=\"140\" y2=\"0\" style=\"stroke:#b0c4de; stroke-width:3; stroke-dasharray:4;\" />",
+      "positions": [
+        { "n": 1, "label": "过去 / 起因", "dx": -140, "dy": 0, "dir": "top" },
+        { "n": 2, "label": "现在 / 现状", "dx": 0, "dy": 0, "dir": "top" },
+        { "n": 3, "label": "未来 / 发展", "dx": 140, "dy": 0, "dir": "top" }
+      ],
+      "notes_html": "<ul><li>由左至右阅读：<b>过去的起因</b> 如何塑造 <b>现在的处境</b>，并流向 <b>未来的发展</b>。</li><li>适合快速了解一件事情的来龙去脉与走向。</li></ul>"
+    },
+    {
+      "slug": "celtic_triangle",
+      "name_zh": "凯尔特三角牌阵",
+      "name_en": "Celtic Triangle",
+      "count": 3,
+      "canvas": { "w": 460, "h": 340 },
+      "viewBox": "-230 -170 460 340",
+      "svg": "<polygon points=\"0,-75 -110,75 110,75\" style=\"fill:none; stroke:#b0c4de; stroke-width:3; stroke-dasharray:4;\" />",
+      "positions": [
+        { "n": 1, "label": "情况 · 现状分析", "dx": 0, "dy": -75, "dir": "top" },
+        { "n": 2, "label": "障碍 · 面临的困难", "dx": -110, "dy": 75, "dir": "left" },
+        { "n": 3, "label": "建议 · 最佳行动方案", "dx": 110, "dy": 75, "dir": "right" }
+      ],
+      "notes_html": "<ul><li><b>1 情况</b>：对当前处境的整体分析。</li><li><b>2 障碍</b>：正在面临或即将出现的困难。</li><li><b>3 建议</b>：化解障碍的最佳行动方案。</li></ul>"
+    },
+    {
       "slug": "hexagram",
       "name_zh": "六芒星牌阵",
       "name_en": "Hexagram",
